@@ -52,7 +52,7 @@ class Remote():
         if not self.connection:
             raise exceptions.ConnectionClosed()
 
-        jsonTrame = mapping[0]
+        jsonTrame = mapping[0][1]
         payload = json.dumps(jsonTrame)
 
         logging.info("Sending command")
