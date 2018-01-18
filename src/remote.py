@@ -29,7 +29,7 @@ class Remote():
             config["timeout"] = None
 
         url = URL_FORMAT.format(config["host"], config["port"])
-
+        logging.debug("connecting to: %s", url)
         self.connection = websocket.create_connection(url, config["timeout"], subprotocols=["lws-bidirectional-protocol"])
 
         self._read_response()

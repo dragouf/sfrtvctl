@@ -18,7 +18,7 @@ def _read_config():
         "name": "sfrtvctl",
         "description": "PC",
         "id": "",
-        "timeout": 0,
+        "timeout": 10,
     })
 
     file_loaded = False
