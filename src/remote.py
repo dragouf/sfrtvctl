@@ -9,6 +9,12 @@ from . import exceptions
 
 URL_FORMAT = "ws://{}:{}"
 
+_mappings = [
+    ["KEY_POWEROFF",      {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"ButtonEvent","Press":[303],"DeviceModel":"iPhone"}},         "Power off"],
+    ["KEY_UP",            "Up",        "Up"],
+    ["KEY_DOWN",          "Down",      "Down"],
+    ["KEY_LEFT",          "Left",      "Left"],
+]
 
 class Remote():
     """Object for remote control connection."""
@@ -41,11 +47,12 @@ class Remote():
             self.connection = None
             logging.debug("Connection closed.")
 
-    def control(self, jsonTrame):
+    def control(self, key):
         """Send a control command."""
         if not self.connection:
             raise exceptions.ConnectionClosed()
 
+        jsonTrame = mapping[0]
         payload = json.dumps(jsonTrame)
 
         logging.info("Sending command")
