@@ -61,7 +61,7 @@ def _read_config():
 
 
 def main():
-    logger.setLevel(logging.DEBUG)
+    logging.getLogger().setLevel(logging.DEBUG)
     epilog = "E.g. %(prog)s --host 192.168.1.100 --name myremote KEY_VOLDOWN"
     parser = argparse.ArgumentParser(prog=title, description=doc,
                                      epilog=epilog)
