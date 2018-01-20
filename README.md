@@ -140,13 +140,11 @@ constructed using the ``with`` statement:
 The constructor takes a configuration dictionary as a parameter. All
 configuration items must be specified.
 
-===========  ======  ===========================================
-Key          Type    Description
-===========  ======  ===========================================
-host         string  Hostname or IP address of the TV.
-port         int     TCP port number. (Default: ``55000``)
-timeout      int     Timeout in seconds. ``0`` means no timeout.
-===========  ======  ===========================================
+| Key     | Type   | Description                                 |
+|---------|--------|---------------------------------------------|
+| host    | string | Hostname or IP address of the decoder.      |
+| port    | int    | TCP port number. (Default: ``7682``)        |
+| timeout | int    | Timeout in seconds. ``0`` means no timeout. |
 
 The ``Remote`` object is very simple and you only need the ``control(key, arg1, arg2)``
 method. See tables above for more details about commands you can pass. You can call ``control`` multiple times
