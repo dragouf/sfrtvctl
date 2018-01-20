@@ -21,7 +21,7 @@ from homeassistant.const import (
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util import dt as dt_util
 
-REQUIREMENTS = ['sfrtvctl>=0.0.1', 'websocket-client>=0.37.0']
+REQUIREMENTS = ['sfrtvctl==0.1.0', 'websocket-client==0.46.0']
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ KNOWN_DEVICES_KEY = 'STB7_known_devices'
 
 SUPPORT_SFRTV = SUPPORT_PAUSE | SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | \
                SUPPORT_PREVIOUS_TRACK | SUPPORT_NEXT_TRACK | SUPPORT_SEEK | \
-               SUPPORT_PLAY_MEDIA | SUPPORT_STOP | \
+               SUPPORT_STOP | \
                SUPPORT_PLAY | SUPPORT_VOLUME_STEP
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
