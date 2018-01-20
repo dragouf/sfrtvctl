@@ -117,7 +117,7 @@ class SfrTVDevice(MediaPlayerDevice):
     def update(self):
         """Retrieve the latest data."""
         # Send an empty key to see if we are still connected
-        self.send_key('KEY')
+        #self.send_key('KEY')
 
     def get_remote(self):
         """Create or return a remote control instance."""
@@ -186,20 +186,20 @@ class SfrTVDevice(MediaPlayerDevice):
 
     def volume_up(self):
         """Volume up the media player."""
-        self.send_key('BUTTONEVENT', 'VUP')
+        self.send_key('BUTTONEVENT', 'VUP', '')
 
     def volume_down(self):
         """Volume down media player."""
-        self.send_key('BUTTONEVENT', 'VDOWN')
+        self.send_key('BUTTONEVENT', 'VDOWN', '')
 
     def set_volume_level(self, volume):
         """Set volume level, range 0..1."""
         tv_volume = volume * 100
-        self.send_key('SETVOLUME', tv_volume)
+        self.send_key('SETVOLUME', tv_volume, '')
 
     def mute_volume(self, mute):
         """Send mute command."""
-        self.send_key('BUTTONEVENT', 'MUTE')
+        self.send_key('BUTTONEVENT', 'MUTE', '')
 
     def media_play_pause(self):
         """Simulate play pause media player."""
@@ -211,20 +211,20 @@ class SfrTVDevice(MediaPlayerDevice):
     def media_play(self):
         """Send play command."""
         self._playing = True
-        self.send_key('BUTTONEVENT', 'PLAYPAUSE')
+        self.send_key('BUTTONEVENT', 'PLAYPAUSE', '')
 
     def media_pause(self):
         """Send media pause command to media player."""
         self._playing = False
-        self.send_key('BUTTONEVENT', 'PLAYPAUSE')
+        self.send_key('BUTTONEVENT', 'PLAYPAUSE', '')
 
     def media_next_track(self):
         """Send next track command."""
-        self.send_key('BUTTONEVENT', 'FORWARD')
+        self.send_key('BUTTONEVENT', 'FORWARD', '')
 
     def media_previous_track(self):
         """Send the previous track command."""
-        self.send_key('BUTTONEVENT', 'REWIND')
+        self.send_key('BUTTONEVENT', 'REWIND', '')
 
     def turn_on(self):
         """Turn the media player on."""
@@ -233,4 +233,4 @@ class SfrTVDevice(MediaPlayerDevice):
     def select_source(self, source):
         """Select input source."""
         self._current_source = source
-        self.send_key('ZAP', source)
+        self.send_key('ZAP', source, '')
