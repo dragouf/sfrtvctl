@@ -61,7 +61,6 @@ def _read_config():
 
 
 def main():
-    logging.getLogger().setLevel(logging.DEBUG)
     epilog = "E.g. %(prog)s --host 192.168.1.100 --name myremote KEY_VOLDOWN"
     parser = argparse.ArgumentParser(prog=title, description=doc,
                                      epilog=epilog)
@@ -86,6 +85,8 @@ def main():
 
     args = parser.parse_args()
 
+    #import ipdb; ipdb.set_trace()
+
     if args.quiet:
         log_level = logging.ERROR
     elif not args.verbose:
@@ -106,8 +107,14 @@ def main():
 
     try:
         with Remote(config) as remote:
-            for key in args.key:
-                remote.control(key)
+            #for idx, key in enumerate(args.key):
+            keyarg1 = ""
+            keyarg2 = ""
+            if len(args.key) >= 2:
+                keyarg1 = args.key[1]
+            if len(args.key) >= 3:
+                keyarg2 = args.key[2]
+            remote.control(args.key[0], keyarg1, keyarg2)
 
             if args.interactive:
                 logging.getLogger().setLevel(logging.ERROR)
