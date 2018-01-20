@@ -22,7 +22,7 @@ GETINFO and GETVERSION
 Installation
 ============
 
-samsungctl can be installed using `pip <(https://pip.pypa.io/>`_:
+sfrtvctl can be installed using `pip <(https://pip.pypa.io/>`_:
 
 ::
 
