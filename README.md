@@ -68,17 +68,17 @@ the table here resume each possible actions for BUTTONEVENT :
 | MUTE                           | mute sound key                                   |
 | POWER                          | power on/off key                                 |
 
-in command line mode here is an example of command :
-```sfrtvctl --host BUTTONEVENT VUP``` # increase volume
-```sfrtvctl --host BUTTONEVENT NUMBER 1``` # type 1 on num pad (will change channel if watching tv)
+in command line mode here is an example of command :  
+```sfrtvctl --host 192.168.1.100  BUTTONEVENT VUP``` # increase volume  
+```sfrtvctl --host 192.168.1.100  BUTTONEVENT NUMBER 1``` # type 1 on num pad (will change channel if watching tv)  
 
 ZAP
 ====
 
 ZAP command is simple, it just take a number as second argument.
 
-in command line mode here is an example of command :
-```sfrtvctl --host ZAP 180``` # will go to channel 180
+in command line mode here is an example of command :  
+```sfrtvctl --host 192.168.1.100  ZAP 180``` # will go to channel 180  
 
 APP
 ===
@@ -94,15 +94,15 @@ APP
 | SETTINGS      | Decoder settings                  |
 
 in command line mode here is an example of command :
-```sfrtvctl --host MOSAIC``` # will display mosaique
+```sfrtvctl --host 192.168.1.100  MOSAIC``` # will display mosaique
 
 SETVOLUME
 ==========
 
 SETVOLUME command is simple, it just take a number between 1 and 100 as second argument to set volume.
 
-in command line mode here is an example of command :
-```sfrtvctl --host SETVOLUME 40``` # will set volume to 40
+in command line mode here is an example of command :  
+```sfrtvctl --host 192.168.1.100  SETVOLUME 40``` # will set volume to 40  
 
 KEYBOARD
 =========
@@ -115,9 +115,9 @@ will send keyboard data. This command has a special character to start search wh
 | VALUE         | send keyboard key pass in third argument |
 
 
-in command line mode here is an example of command :
-```sfrtvctl --host SEARCH``` # will start search
-```sfrtvctl --host VALUE a``` # will type a in an input field
+in command line mode here is an example of command :  
+```sfrtvctl --host 192.168.1.100  SEARCH``` # will start search  
+```sfrtvctl --host 192.168.1.100  VALUE a``` # will type a in an input field  
 
 
 Library usage
