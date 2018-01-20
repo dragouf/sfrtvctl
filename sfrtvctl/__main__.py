@@ -61,7 +61,7 @@ def _read_config():
 
 
 def main():
-    epilog = "E.g. %(prog)s --host 192.168.1.100 --name myremote KEY_VOLDOWN"
+    epilog = "E.g. %(prog)s --host 192.168.1.100 ZAP 2"
     parser = argparse.ArgumentParser(prog=title, description=doc,
                                      epilog=epilog)
     parser.add_argument("--version", action="version",
@@ -81,7 +81,7 @@ def main():
     parser.add_argument("--timeout", type=float,
                         help="socket timeout in seconds (0 = no timeout)")
     parser.add_argument("key", nargs="*",
-                        help="keys to be sent (e.g. KEY_VOLDOWN)")
+                        help="keys to be sent (e.g. BUTTONEVENT)")
 
     args = parser.parse_args()
 
@@ -107,7 +107,6 @@ def main():
 
     try:
         with Remote(config) as remote:
-            #for idx, key in enumerate(args.key):
             keyarg1 = ""
             keyarg2 = ""
             if len(args.key) >= 2:

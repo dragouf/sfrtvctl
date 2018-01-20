@@ -130,7 +130,7 @@ class SfrTVDevice(MediaPlayerDevice):
     def send_key(self, key, keyArg1, keyArg2):
         """Send a key to the tv and handles exceptions."""
         if self._power_off_in_progress() \
-                and not (key == 'KEY_POWER' or key == 'KEY_POWEROFF'):
+                and not (key == 'POWER'):
             _LOGGER.info("TV is powering off, not sending command: %s", key)
             return
         try:
@@ -176,7 +176,7 @@ class SfrTVDevice(MediaPlayerDevice):
     def turn_off(self):
         """Turn off media player."""
         self._end_of_power_off = dt_util.utcnow() + timedelta(seconds=15)
-        self.send_key('KEY_BUTTONEVENT', 'POWER', '')
+        self.send_key('BUTTONEVENT', 'POWER', '')
 
         # Force closing of remote session to provide instant UI feedback
         try:
@@ -186,20 +186,20 @@ class SfrTVDevice(MediaPlayerDevice):
 
     def volume_up(self):
         """Volume up the media player."""
-        self.send_key('KEY_BUTTONEVENT', 'VUP')
+        self.send_key('BUTTONEVENT', 'VUP')
 
     def volume_down(self):
         """Volume down media player."""
-        self.send_key('KEY_BUTTONEVENT', 'VDOWN')
+        self.send_key('BUTTONEVENT', 'VDOWN')
 
     def set_volume_level(self, volume):
         """Set volume level, range 0..1."""
         tv_volume = volume * 100
-        self.send_key('KEY_SETVOLUME', tv_volume)
+        self.send_key('SETVOLUME', tv_volume)
 
     def mute_volume(self, mute):
         """Send mute command."""
-        self.send_key('KEY_BUTTONEVENT', 'MUTE')
+        self.send_key('BUTTONEVENT', 'MUTE')
 
     def media_play_pause(self):
         """Simulate play pause media player."""
@@ -211,26 +211,26 @@ class SfrTVDevice(MediaPlayerDevice):
     def media_play(self):
         """Send play command."""
         self._playing = True
-        self.send_key('KEY_BUTTONEVENT', 'PLAYPAUSE')
+        self.send_key('BUTTONEVENT', 'PLAYPAUSE')
 
     def media_pause(self):
         """Send media pause command to media player."""
         self._playing = False
-        self.send_key('KEY_BUTTONEVENT', 'PLAYPAUSE')
+        self.send_key('BUTTONEVENT', 'PLAYPAUSE')
 
     def media_next_track(self):
         """Send next track command."""
-        self.send_key('KEY_BUTTONEVENT', 'FORWARD')
+        self.send_key('BUTTONEVENT', 'FORWARD')
 
     def media_previous_track(self):
         """Send the previous track command."""
-        self.send_key('KEY_BUTTONEVENT', 'REWIND')
+        self.send_key('BUTTONEVENT', 'REWIND')
 
     def turn_on(self):
         """Turn the media player on."""
-        self.send_key('KEY_BUTTONEVENT', 'POWER', '')
+        self.send_key('BUTTONEVENT', 'POWER', '')
 
     def select_source(self, source):
         """Select input source."""
         self._current_source = source
-        self.send_key('KEY_ZAP', source)
+        self.send_key('ZAP', source)

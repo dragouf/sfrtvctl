@@ -48,15 +48,15 @@ _keyboardEventmappings = {
 
 _mappings = {
     # use _buttonEventmappings for the value. In case of NUMBER get a third argument as a value
-    "KEY_BUTTONEVENT": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"ButtonEvent","Press":[0],"DeviceModel":"iPhone"}},
+    "BUTTONEVENT": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"ButtonEvent","Press":[0],"DeviceModel":"iPhone"}},
     # no conversion for the value, just a digit
-    "KEY_ZAP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Params":["0","zapdigit"],"Action":"CustomEvent","DeviceModel":"iPhone","Event":"GotoLive"}},
+    "ZAP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Params":["0","zapdigit"],"Action":"CustomEvent","DeviceModel":"iPhone","Event":"GotoLive"}},
     # use _appKeymappings for the value
-    "KEY_APP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GotoApp","AppName":"","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}},
+    "APP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GotoApp","AppName":"","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}},
     # use number between 1 and 100
-    "KEY_SETVOLUME": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","IsMute":False,"Action":"SetVolume","DeviceModel":"iPhone","Level":"12"}},
+    "SETVOLUME": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","IsMute":False,"Action":"SetVolume","DeviceModel":"iPhone","Level":"12"}},
     # keyboard mode (for example when in search input). Use special key search else use third argument value converted to utf8 decimal code
-    "KEY_KEYBOARD": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"KeyboardEvent","Press":[32],"DeviceModel":"iPhone"}},
+    "KEYBOARD": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"KeyboardEvent","Press":[32],"DeviceModel":"iPhone"}},
     # special packet to ask for STB7 device current state information
     "GETINFO": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GetSessionsStatus","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}},
     "GETVERSION": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GetVersions","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}}
@@ -96,7 +96,7 @@ class Remote():
         if not self.connection:
             raise exceptions.ConnectionClosed()
 
-        if key == "KEY_BUTTONEVENT":
+        if key == "BUTTONEVENT":
             # need a second argument which should be from _buttonEventmappings dic
             if _buttonEventmappings.has_key(keyArg1):
                 if keyArg1 != "NUMBER":
@@ -104,14 +104,14 @@ class Remote():
                 else:
                     _mappings[key]["Params"]["Press"][0] = ord(keyArg2)
             else:
-                logging.warn("KEY_BUTTONEVENT argument was missing")
-        elif key == "KEY_ZAP" and keyArg1.isdigit():
+                logging.warn("BUTTONEVENT argument was missing")
+        elif key == "ZAP" and keyArg1.isdigit():
             _mappings[key]["Params"]["Params"][0] = int(keyArg1)
-        elif key == "KEY_APP" and _appKeymappings.has_key(keyArg1):
+        elif key == "APP" and _appKeymappings.has_key(keyArg1):
             _mappings[key]["Params"]["AppName"] = _appKeymappings[keyArg1]
-        elif key == "KEY_SETVOLUME" and keyArg1.isdigit():
+        elif key == "SETVOLUME" and keyArg1.isdigit():
             _mappings[key]["Params"]["Level"] = int(keyArg1)
-        elif key == "KEY_KEYBOARD" and _keyboardEventmappings.has_key(keyArg1):
+        elif key == "KEYBOARD" and _keyboardEventmappings.has_key(keyArg1):
             if keyArg1 == "SEARCH":
                 _mappings[key]["Params"]["Press"][0] = _keyboardEventmappings[keyArg1]
             else:
