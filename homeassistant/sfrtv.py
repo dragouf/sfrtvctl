@@ -16,8 +16,7 @@ from homeassistant.components.media_player import (
     SUPPORT_VOLUME_SET, SUPPORT_STOP, SUPPORT_SEEK,
     MEDIA_TYPE_VIDEO, MEDIA_TYPE_CHANNEL, SUPPORT_SELECT_SOURCE,
     SUPPORT_PLAY, MediaPlayerDevice, PLATFORM_SCHEMA, SUPPORT_TURN_ON)
-from homeassistant.const import (
-    CONF_HOST, CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, CONF_PORT)
+from homeassistant.const import (CONF_HOST, CONF_NAME, STATE_OFF, STATE_ON, STATE_UNKNOWN, CONF_PORT)
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util import dt as dt_util
 
@@ -35,8 +34,8 @@ KNOWN_DEVICES_KEY = 'STB7_known_devices'
 
 SUPPORT_SFRTV = SUPPORT_PAUSE | SUPPORT_VOLUME_SET | SUPPORT_VOLUME_MUTE | \
                SUPPORT_PREVIOUS_TRACK | SUPPORT_NEXT_TRACK | SUPPORT_SEEK | \
-               SUPPORT_STOP | \
-               SUPPORT_PLAY | SUPPORT_VOLUME_STEP
+               SUPPORT_TURN_ON | SUPPORT_TURN_OFF | SUPPORT_STOP | \
+               SUPPORT_SELECT_SOURCE | SUPPORT_PLAY | SUPPORT_VOLUME_STEP
 
 PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
     vol.Required(CONF_HOST): cv.string,
@@ -129,6 +128,7 @@ class SfrTVDevice(MediaPlayerDevice):
 
     def send_key(self, key, keyArg1, keyArg2):
         """Send a key to the tv and handles exceptions."""
+        _LOGGER.debug("Sending command: %s %s %s", key, keyArg1, keyArg2)
         if self._power_off_in_progress() \
                 and not (key == 'POWER'):
             _LOGGER.info("TV is powering off, not sending command: %s", key)
@@ -173,8 +173,15 @@ class SfrTVDevice(MediaPlayerDevice):
         """Flag media player features that are supported."""
         return SUPPORT_SFRTV
 
+    @property
+    def media_content_type(self):
+        """Content type of current playing media."""
+        # return self._client.media_type
+        return MEDIA_TYPE_CHANNEL
+
     def turn_off(self):
         """Turn off media player."""
+        _LOGGER.debug("turning off stb7...")
         self._end_of_power_off = dt_util.utcnow() + timedelta(seconds=15)
         self.send_key('BUTTONEVENT', 'POWER', '')
 
@@ -228,6 +235,7 @@ class SfrTVDevice(MediaPlayerDevice):
 
     def turn_on(self):
         """Turn the media player on."""
+        _LOGGER.debug("turning off stb7...")
         self.send_key('BUTTONEVENT', 'POWER', '')
 
     def select_source(self, source):

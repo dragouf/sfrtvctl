@@ -98,7 +98,7 @@ class Remote():
 
         if key == "BUTTONEVENT":
             # need a second argument which should be from _buttonEventmappings dic
-            if _buttonEventmappings.has_key(keyArg1):
+            if keyArg1 in _buttonEventmappings:
                 if keyArg1 != "NUMBER":
                     _mappings[key]["Params"]["Press"][0] = _buttonEventmappings[keyArg1]
                 else:
@@ -107,11 +107,11 @@ class Remote():
                 logging.warn("BUTTONEVENT argument was missing")
         elif key == "ZAP" and keyArg1.isdigit():
             _mappings[key]["Params"]["Params"][0] = int(keyArg1)
-        elif key == "APP" and _appKeymappings.has_key(keyArg1):
+        elif key == "APP" and keyArg1 in _appKeymappings:
             _mappings[key]["Params"]["AppName"] = _appKeymappings[keyArg1]
         elif key == "SETVOLUME" and keyArg1.isdigit():
             _mappings[key]["Params"]["Level"] = int(keyArg1)
-        elif key == "KEYBOARD" and _keyboardEventmappings.has_key(keyArg1):
+        elif key == "KEYBOARD" and keyArg1 in _keyboardEventmappings:
             if keyArg1 == "SEARCH":
                 _mappings[key]["Params"]["Press"][0] = _keyboardEventmappings[keyArg1]
             else:
