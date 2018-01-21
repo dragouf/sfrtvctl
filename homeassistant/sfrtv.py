@@ -20,7 +20,7 @@ from homeassistant.const import (CONF_HOST, CONF_NAME, STATE_OFF, STATE_ON, STAT
 import homeassistant.helpers.config_validation as cv
 from homeassistant.util import dt as dt_util
 
-REQUIREMENTS = ['sfrtvctl==0.1.0', 'websocket-client==0.46.0']
+REQUIREMENTS = ['sfrtvctl==0.1.2', 'websocket-client==0.46.0']
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -116,7 +116,7 @@ class SfrTVDevice(MediaPlayerDevice):
     def update(self):
         """Retrieve the latest data."""
         # Send an empty key to see if we are still connected
-        #self.send_key('KEY')
+        self.send_key('GETINFO', '', '')
 
     def get_remote(self):
         """Create or return a remote control instance."""
@@ -129,8 +129,7 @@ class SfrTVDevice(MediaPlayerDevice):
     def send_key(self, key, keyArg1, keyArg2):
         """Send a key to the tv and handles exceptions."""
         _LOGGER.debug("Sending command: %s %s %s", key, keyArg1, keyArg2)
-        if self._power_off_in_progress() \
-                and not (key == 'POWER'):
+        if self._power_off_in_progress() and not (key == 'POWER'):
             _LOGGER.info("TV is powering off, not sending command: %s", key)
             return
         try:
@@ -184,12 +183,6 @@ class SfrTVDevice(MediaPlayerDevice):
         _LOGGER.debug("turning off stb7...")
         self._end_of_power_off = dt_util.utcnow() + timedelta(seconds=15)
         self.send_key('BUTTONEVENT', 'POWER', '')
-
-        # Force closing of remote session to provide instant UI feedback
-        try:
-            self.get_remote().close()
-        except OSError:
-            _LOGGER.debug("Could not establish connection.")
 
     def volume_up(self):
         """Volume up the media player."""

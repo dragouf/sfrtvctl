@@ -64,6 +64,7 @@ _mappings = {
 
 class Remote():
     """Object for remote control connection."""
+    _key_interval = 0.5
 
     def __init__(self, config):
         import websocket
@@ -76,13 +77,21 @@ class Remote():
 
         url = URL_FORMAT.format(config["host"], config["port"])
         logging.debug("connecting to: %s", url)
-        self.connection = websocket.create_connection(url, config["timeout"], subprotocols=["lws-bidirectional-protocol"])
+
+        self.url = url
+        self.config = config
+
+        self.connect()
 
     def __enter__(self):
         return self
 
     def __exit__(self, type, value, traceback):
         self.close()
+
+    def connect(self):
+        import websocket
+        self.connection = websocket.create_connection(self.url, self.config["timeout"], subprotocols=["lws-bidirectional-protocol"])
 
     def close(self):
         """Close the connection."""
@@ -94,7 +103,9 @@ class Remote():
     def control(self, key, keyArg1, keyArg2):
         """Send a control command."""
         if not self.connection:
-            raise exceptions.ConnectionClosed()
+            logging.info("websocket connection was closed, reopen it")
+            #raise exceptions.ConnectionClosed()
+            self.connect()
 
         if key == "BUTTONEVENT":
             # need a second argument which should be from _buttonEventmappings dic
@@ -122,17 +133,17 @@ class Remote():
 
         payload = json.dumps(jsonTrame)
 
-        logging.info("Sending command: %s", jsonTrame)
+        logging.debug("Sending command: %s", jsonTrame)
         self.connection.send(payload)
-        time.sleep(self._key_interval)
-
-    _key_interval = 0.5
+        #time.sleep(self._key_interval)
 
     def _read_response(self):
         response = self.connection.recv()
         response = json.loads(response)
 
-        logging.debug("reponse: %s", response)
+        logging.debug("recv reponse: %s", response)
+
+        return response
 
     @staticmethod
     def _serialize_string(string):
