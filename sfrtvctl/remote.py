@@ -9,8 +9,6 @@ from . import exceptions
 
 URL_FORMAT = "ws://{}:{}"
 
-DEVICE_MODEL = "iphone"
-
 _buttonEventmappings = {
     "VUP": 308,
     "VDOWN": 307,
@@ -28,7 +26,12 @@ _buttonEventmappings = {
     "FORWARD": 305,
     "REWIND": 304,
     "MUTE": 302,
-    "POWER": 303
+    "POWER": 303,
+    "STOP": 19,
+    "HOME": 292,
+    "RECORD": 309
+
+
 }
 
 _appKeymappings = {
@@ -48,18 +51,18 @@ _keyboardEventmappings = {
 
 _mappings = {
     # use _buttonEventmappings for the value. In case of NUMBER get a third argument as a value
-    "BUTTONEVENT": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"ButtonEvent","Press":[0],"DeviceModel":"iPhone"}},
+    "BUTTONEVENT": {"Params":{"Token":"LAN","Action":"ButtonEvent","Press":[0]}},
     # no conversion for the value, just a digit
-    "ZAP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Params":["0","zapdigit"],"Action":"CustomEvent","DeviceModel":"iPhone","Event":"GotoLive"}},
+    "ZAP": {"Params":{"Token":"LAN","Params":["0","zapdigit"],"Action":"CustomEvent","Event":"GotoLive"}},
     # use _appKeymappings for the value
-    "APP": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GotoApp","AppName":"","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}},
+    "APP": {"Params":{"Token":"LAN","Action":"GotoApp","AppName":""}},
     # use number between 1 and 100
-    "SETVOLUME": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","IsMute":False,"Action":"SetVolume","DeviceModel":"iPhone","Level":"12"}},
+    "SETVOLUME": {"Params":{"Token":"LAN","IsMute":False,"Action":"SetVolume","Level":"12"}},
     # keyboard mode (for example when in search input). Use special key search else use third argument value converted to utf8 decimal code
-    "KEYBOARD": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"KeyboardEvent","Press":[32],"DeviceModel":"iPhone"}},
+    "KEYBOARD": {"Params":{"Token":"LAN","Action":"KeyboardEvent","Press":[32]}},
     # special packet to ask for STB7 device current state information
-    "GETINFO": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GetSessionsStatus","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}},
-    "GETVERSION": {"Params":{"Token":"LAN","DeviceSoftVersion":"11.2.2","Action":"GetVersions","DeviceModel":"iPhone","DeviceId":"375CC21F-2E8D-4C31-B728-7790E6D24BD0"}}
+    "GETINFO": {"Params":{"Token":"LAN","Action":"GetSessionsStatus"}},
+    "GETVERSION": {"Params":{"Token":"LAN","Action":"GetVersions"}}
 }
 
 class Remote():
