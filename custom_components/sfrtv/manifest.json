@@ -1,0 +1,9 @@
+{
+  "domain": "sfrtv",
+  "name": "SFR Décodeur 7",
+  "documentation": "",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@jaruba"],
+  "version": "1.0"
+}

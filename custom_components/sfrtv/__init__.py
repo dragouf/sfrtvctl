@@ -1,0 +1,1 @@
+"""The SFR decoder component."""
